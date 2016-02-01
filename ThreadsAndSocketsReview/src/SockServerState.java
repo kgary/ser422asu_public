@@ -25,7 +25,7 @@ class SockServerState {
 
 				char c = (char)in.read();
 				System.out.print("Server received " + c);
-				if (args.length > 0) Thread.sleep(Long.parseLong(args[0]));
+				Thread.sleep(10000);
 				switch (c) {
 				case 'r': 
 					clientId = in.read();
