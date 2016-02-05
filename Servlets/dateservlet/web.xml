@@ -5,17 +5,17 @@
 
 <web-app>
   <display-name>Date Servlet</display-name>
-  <description>Sample for CST533</description>
+  <description>Sample for SER422</description>
   
   <servlet>
     <servlet-name>DateMe</servlet-name>
-    <servlet-class>edu.asupoly.cst425.servlets.DateServlet</servlet-class>
+    <servlet-class>edu.asupoly.ser422.dateservlet.DateServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
   
   <servlet-mapping>
     <servlet-name>DateMe</servlet-name>
-    <url-pattern>date</url-pattern>
+    <url-pattern>/date</url-pattern>
   </servlet-mapping>
  <!-- This is just an example of other things you can do -->
   <mime-mapping>
