@@ -5,6 +5,19 @@
 <web-app>
   <display-name>SER422 State Examples</display-name>
   <description>State Samples for SER422</description>
+
+    <servlet>
+        <servlet-name>SessionServlet</servlet-name>
+        <servlet-class>Session1</servlet-class>
+    </servlet>
+   <servlet>
+        <servlet-name>SessionServlet2</servlet-name>
+        <servlet-class>Session2</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SessionServlet3</servlet-name>
+        <servlet-class>Session3</servlet-class>
+    </servlet>
   
   <servlet>
     <servlet-name>CookieExample</servlet-name>
@@ -61,7 +74,26 @@
     <servlet-name>RewriteClientExample</servlet-name>
     <url-pattern>/rewriteclient/*</url-pattern>
   </servlet-mapping>
-   
+  <servlet-mapping>
+    <servlet-name>SessionServlet</servlet-name>
+    <url-pattern>/session</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SessionServlet2</servlet-name>
+    <url-pattern>/Session2</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SessionServlet3</servlet-name>
+    <url-pattern>/Session3</url-pattern>
+  </servlet-mapping>
+
+  <!-- Session Listener declarations -->
+  <listener>
+	<description>sessionListener</description>
+	<listener-class>SessionListen</listener-class>
+  </listener>
+
+  <!-- This says what file to serve at the root URL of your context --> 
   <welcome-file-list>
   	<welcome-file>/index.html</welcome-file>
   </welcome-file-list>

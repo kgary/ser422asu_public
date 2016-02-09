@@ -4,6 +4,10 @@
 **/classes/
 **/bin/
 
+# Emacs stuff
+.#*
+*~
+
 # Package Files #
 *.jar
 *.war
