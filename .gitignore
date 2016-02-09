@@ -1,7 +1,8 @@
+# build files
 *.class
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+build/*
+classes/*
+bin/*
 
 # Package Files #
 *.jar
