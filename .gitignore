@@ -1,8 +1,8 @@
 # build files
 *.class
-build/*
-classes/*
-bin/*
+**/build/
+**/classes/
+**/bin/
 
 # Package Files #
 *.jar
