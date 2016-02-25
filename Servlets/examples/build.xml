@@ -80,7 +80,7 @@
              destdir="javadoc"
              author="true"
              version="true"
-             windowtitle="CST425 Sample Servlets"
+             windowtitle="SER422 Sample Servlets"
              doctitle="InClass"
              bottom="Copyright 2008 Kevin Gary" />
   </target>
