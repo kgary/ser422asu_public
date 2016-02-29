@@ -18,6 +18,10 @@
         <servlet-name>SessionServlet3</servlet-name>
         <servlet-class>Session3</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SimpleSession</servlet-name>
+        <servlet-class>SimpleSession</servlet-class>
+    </servlet>
   
   <servlet>
     <servlet-name>CookieExample</servlet-name>
@@ -85,6 +89,11 @@
   <servlet-mapping>
     <servlet-name>SessionServlet3</servlet-name>
     <url-pattern>/Session3</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>SimpleSession</servlet-name>
+    <url-pattern>/simple</url-pattern>
   </servlet-mapping>
 
   <!-- Session Listener declarations -->

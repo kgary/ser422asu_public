@@ -1,15 +1,11 @@
 <!--
-   Example build.xml file for SER422
-   Copyright 2014 Kevin A. Gary
-
-   This build.xml does most of the things asked of you in the
-   submission guidelines document. However, you may need to 
-   customize actions for these targets per each lab's
-   particular submission requirements, so please take the time
-   to understand how this works!
+   Copyright 2014 Kevin A. Gary for SER422
+   
+   This Freemarker example taken from 
+   http://viralpatel.net/blogs/freemarker-servlet-tutorial-example/
 -->
 
-<project name="SER422 Servlet examples 2" default="compile" basedir=".">
+<project name="SER422 MVC Freemarker Example" default="compile" basedir=".">
   <property file="build.properties"/>
 
   <!-- init target makes the directory structure. You may not
@@ -17,7 +13,6 @@
   <target name="init">
     <tstamp/>
     <mkdir dir="${classes.dir}"/>
-    <mkdir dir="${javadoc.dir}"/>
   </target>
 
   <!-- Compiles your java files and puts the classes in classes.dir -->
@@ -27,8 +22,8 @@
       destdir="${classes.dir}">
       <!-- Make sure you set your classpath! -->
       <classpath>
-        <fileset dir="${lib.dir}" includes="*.jar"/>
         <fileset dir="${tomcat.home}/lib" includes="servlet-api.jar"/>
+      	<fileset dir="${lib.dir}" includes="*.jar"/>
         <pathelement path="${classes.dir}" />
       </classpath>
     </javac>
@@ -49,13 +44,10 @@
     <mkdir dir="${build.home}"/>
     <mkdir dir="${build.home}/WEB-INF"/>
     <copy todir="${build.home}/WEB-INF">
-      <fileset dir="." includes="${classes.dir}/**,${lib.dir}/**" excludes="${classes.dir}/driver/**"/>
-    </copy>
-    <copy todir="${build.home}/WEB-INF/${classes.dir}">
-      <fileset dir="${properties.dir}"/>
+      <fileset dir="." includes="${classes.dir}/**,${lib.dir}/**"/>
     </copy>
     <copy todir="${build.home}">
-      <fileset dir="${resources.dir}" includes="*.html, *.jsp"/>
+      <fileset dir="${resources.dir}" includes="*.html, *.jsp, *.ftl"/>
     </copy>
     <copy file="web.xml" tofile="${build.home}/WEB-INF/web.xml"/>
   </target>
@@ -66,25 +58,6 @@
     </jar>
   </target>
 
-  <!-- submit creates a single jarfile that you will upload to the
-       Gradebook channel on the class portal. -->
-  <target name="submit" depends="dist,javadoc">
-    <jar destfile="${submit.jar}" basedir="." includes="README.txt,build.properties,build.xml,web.xml,${src.dir}/**,${docs.dir}/**,${javadoc.dir}/**,${properties.dir}/**,${lib.dir}/**,${classes.dir}/**">
-     </jar>
-  </target>
-
-  <!-- Run javadoc on your java source code -->
-  <target name="javadoc" depends="init">
-    <javadoc packagenames="*"
-             sourcepath="src"
-             destdir="javadoc"
-             author="true"
-             version="true"
-             windowtitle="SER422 Sample Servlets"
-             doctitle="InClass"
-             bottom="Copyright 2008 Kevin Gary" />
-  </target>
-
   <!-- Clean -->
   <!-- NOTE: This needs some work, we really need to undeploy the app in TC -->
   <target name="clean">
@@ -93,12 +66,6 @@
     <delete file="${tomcat.home}/webapps/${dist.jar}"/>
     <delete dir="${build.home}"/>
 	<delete dir="${classes.dir}"/>
-  </target>
-
-  <!-- Clean all -->
-  <target name="cleanall" depends="clean">
-    <delete dir="${javadoc.dir}"/>
-    <delete file="${submit.jar}"/>
   </target>
 
 </project>

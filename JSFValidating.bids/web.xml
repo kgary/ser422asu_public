@@ -1,0 +1,41 @@
+<?xml version="1.0"?>    
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+         version="2.4">
+     
+  <!-- Faces Servlet
+       Marty Hall: changed .jsf back to standard of .faces -->
+  <servlet>
+     <servlet-name>Faces Servlet</servlet-name>
+     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+     <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+     <servlet-name>Faces Servlet</servlet-name>
+     <url-pattern>*.faces</url-pattern>
+  </servlet-mapping>
+  
+  <!-- Added a filter that redirects all requests sent to blah.jsp to
+       blah.faces instead. This assumes that there are no non-JSF
+       JSP pages in the entire Web application. See code for other
+       assumptions and restrictions. 
+       From http://www.coreservlets.com/JSF-Tutorial/.-->
+  <!-- Register the name "faces-redirect-filter" for FacesRedirectFilter. -->
+  <filter>
+    <filter-name>faces-redirect-filter</filter-name>
+    <filter-class>coreservlets.FacesRedirectFilter</filter-class>
+  </filter>
+  <!-- Apply the faces redirect filter to all JSP pages. -->
+  <filter-mapping>
+    <filter-name>faces-redirect-filter</filter-name>
+    <url-pattern>*.jsp</url-pattern>
+  </filter-mapping>
+  
+  <!-- Welcome files -->
+  <welcome-file-list>
+     <welcome-file>index.jsp</welcome-file>
+     <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+
+</web-app>

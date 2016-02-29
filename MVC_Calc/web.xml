@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/j2ee/dtds/web-app_2_3.dtd">
+
+<web-app>
+    <display-name>SER422 Calculator MVC Example</display-name>
+
+    <servlet>
+        <servlet-name>CalcServlet</servlet-name>
+        <servlet-class>edu.asupoly.ser422.calc.controller.CalcServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InvalidActionView</servlet-name>
+        <servlet-class>edu.asupoly.ser422.calc.view.InvalidActionView</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InvalidValueView</servlet-name>
+        <servlet-class>edu.asupoly.ser422.calc.view.InvalidValueView</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowResultView</servlet-name>
+        <servlet-class>edu.asupoly.ser422.calc.view.ShowResultView</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>CalcServlet</servlet-name>
+        <url-pattern>/calc</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InvalidActionView</servlet-name>
+        <url-pattern>/InvalidAction</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InvalidValueView</servlet-name>
+        <url-pattern>/InvalidValue</url-pattern>
+    </servlet-mapping>
+        <servlet-mapping>
+        <servlet-name>ShowResultView</servlet-name>
+        <url-pattern>/ShowResult</url-pattern>
+    </servlet-mapping>
+</web-app>
