@@ -1,5 +1,5 @@
 // Example attributed to Ch. 2 of Mixu's Node Book, http://book.mixu.net/node/ch2.html
-var myTimer = setTimeout(function() {
+var myTimer = setInterval(function() {
     console.log('Timeout at ' + new Date().toTimeString());
 }, 500);
 //myTimer.unref();

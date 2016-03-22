@@ -6,7 +6,7 @@ function cb(ray) {
     console.log(ray);
 }
 // on and addListener are the same thing
-radium.on('radiation', cb);
+radium.addListener('radiation', cb);
 radium.on('foo', function(ray) {
 	console.log("Boo hoo I will never get called");
 });
@@ -19,3 +19,4 @@ setTimeout(function() {
 setInterval(function() {
     radium.emit('radiation', 'GAMMA');
 }, 500);
+radium.emit('foo', 'BETA');
