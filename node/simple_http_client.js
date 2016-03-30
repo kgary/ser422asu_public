@@ -1,3 +1,4 @@
+var http = require('http');
 var options = { hostname: 'www.asu.edu', port: '80', path: '/index.html' };
 var req = http.request(options, function(resp){
     var s=''; 
