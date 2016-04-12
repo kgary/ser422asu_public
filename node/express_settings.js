@@ -2,7 +2,7 @@
 // https://github.com/bwdbooks/nodejs-mongodb-angularjs-web-development
 var express = require('express');
 var app = express();
-app.listen(80);
+app.listen(8080);
 
 console.log(app.get('env'));
 console.log(app.get('trust proxy'));
