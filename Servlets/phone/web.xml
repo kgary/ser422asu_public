@@ -27,7 +27,7 @@
   
   <servlet-mapping>
     <servlet-name>Phonebook</servlet-name>
-    <url-pattern>/phone</url-pattern>
+    <url-pattern>/</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>BadPhonebook</servlet-name>

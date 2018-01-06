@@ -15,11 +15,6 @@
   
   <servlet-mapping>
     <servlet-name>DateMe</servlet-name>
-    <url-pattern>/date</url-pattern>
+    <url-pattern>/</url-pattern>
   </servlet-mapping>
- <!-- This is just an example of other things you can do -->
-  <mime-mapping>
-    <extension>wbmp</extension>
-    <mime-type>image/vnd.wap.wbmp</mime-type>
-  </mime-mapping>
 </web-app>

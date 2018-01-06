@@ -27,7 +27,6 @@
       destdir="${classes.dir}">
       <!-- Make sure you set your classpath! -->
       <classpath>
-        <fileset dir="${lib.dir}" includes="*.jar"/>
         <fileset dir="${tomcat.home}/lib" includes="servlet-api.jar"/>
         <pathelement path="${classes.dir}" />
       </classpath>
@@ -50,9 +49,6 @@
     <mkdir dir="${build.home}/WEB-INF"/>
     <copy todir="${build.home}/WEB-INF">
       <fileset dir="." includes="${classes.dir}/**,${lib.dir}/**" excludes="${classes.dir}/driver/**"/>
-    </copy>
-    <copy todir="${build.home}/WEB-INF/${classes.dir}">
-      <fileset dir="${properties.dir}"/>
     </copy>
     <copy todir="${build.home}">
       <fileset dir="${resources.dir}" includes="*.html, *.jsp"/>

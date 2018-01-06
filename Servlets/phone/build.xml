@@ -17,7 +17,6 @@
   <target name="init">
     <tstamp/>
     <mkdir dir="${classes.dir}"/>
-    <mkdir dir="${javadoc.dir}"/>
   </target>
 
   <!-- Compiles your java files and puts the classes in classes.dir -->
@@ -51,9 +50,6 @@
     <copy todir="${build.home}/WEB-INF">
       <fileset dir="." includes="${classes.dir}/**,${lib.dir}/**" excludes="${classes.dir}/driver/**"/>
     </copy>
-    <copy todir="${build.home}/WEB-INF/${classes.dir}">
-      <fileset dir="${properties.dir}"/>
-    </copy>
     <copy todir="${build.home}/resources">
       <fileset dir="${resources.dir}"/>
     </copy>
@@ -69,21 +65,9 @@
 
   <!-- submit creates a single jarfile that you will upload to the
        Gradebook channel on the class portal. -->
-  <target name="submit" depends="dist,javadoc">
-    <jar destfile="${submit.jar}" basedir="." includes="README.txt,build.properties,build.xml,web.xml,${src.dir}/**,${docs.dir}/**,${javadoc.dir}/**,${properties.dir}/**,${lib.dir}/**,${classes.dir}/**">
+  <target name="submit" depends="dist">
+    <jar destfile="${submit.jar}" basedir="." includes="README.txt,build.properties,build.xml,web.xml,${src.dir}/**,${lib.dir}/**,${classes.dir}/**">
      </jar>
-  </target>
-
-  <!-- Run javadoc on your java source code -->
-  <target name="javadoc" depends="init">
-    <javadoc packagenames="*"
-             sourcepath="src/java"
-             destdir="javadoc"
-             author="true"
-             version="true"
-             windowtitle="Lab 2 APIs"
-             doctitle="InClass"
-             bottom="Copyright 2005 Kevin Gary" />
   </target>
 
   <!-- Clean -->
@@ -98,7 +82,6 @@
 
   <!-- Clean all -->
   <target name="cleanall" depends="clean">
-    <delete dir="${javadoc.dir}"/>
     <delete file="${submit.jar}"/>
   </target>
 

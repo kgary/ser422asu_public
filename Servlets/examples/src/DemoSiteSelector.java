@@ -18,8 +18,8 @@ public class DemoSiteSelector extends HttpServlet{
         
         super.init(config);
         sites.addElement("http://www.google.com");
-        sites.addElement("http://www.java-tips.org");
-        sites.addElement("http://www.yahoo.com");
+        sites.addElement("http://www.randomjoke.com/topic/oneliners.php");
+        sites.addElement("http://www.gocomics.com/calvinandhobbes/");
         sites.addElement("http://www.asu.edu");
         
     }
