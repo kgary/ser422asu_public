@@ -53,6 +53,11 @@
     <servlet-class>ShoppingCartViewerRewriteClient</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
+  <servlet>
+    <servlet-name>SessionExample</servlet-name>
+    <servlet-class>ShoppingCartViewerSession</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
   
   <servlet-mapping>
     <servlet-name>CookieExample</servlet-name>
@@ -74,6 +79,11 @@
     <servlet-name>RewriteExample</servlet-name>
     <url-pattern>/rewrite/*</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SessionExample</servlet-name>
+    <url-pattern>/cart/*</url-pattern>
+  </servlet-mapping>
+
   <servlet-mapping>
     <servlet-name>RewriteClientExample</servlet-name>
     <url-pattern>/rewriteclient/*</url-pattern>
