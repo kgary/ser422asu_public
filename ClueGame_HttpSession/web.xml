@@ -5,16 +5,6 @@
          version="3.1">
 
     <servlet>
-        <servlet-name>IndexServlet</servlet-name>
-        <servlet-class>edu.asupoly.ser422.cluegame.IndexServlet</servlet-class>
-    </servlet>
-    
-    <servlet-mapping>
-        <servlet-name>IndexServlet</servlet-name>
-        <url-pattern>/</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>PlayerServlet</servlet-name>
         <servlet-class>edu.asupoly.ser422.cluegame.PlayerServlet</servlet-class>
     </servlet>
@@ -33,4 +23,8 @@
         <servlet-name>GuessServlet</servlet-name>
         <url-pattern>/guess</url-pattern>
     </servlet-mapping>
+    
+	<welcome-file-list>
+	  	<welcome-file>/index.html</welcome-file>
+	</welcome-file-list>
 </web-app>

@@ -7,15 +7,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.LinkedList;
 import java.util.Random;
 
+@SuppressWarnings({ "unchecked", "serial" })
 public class GuessServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+    	  	resp.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+    	  	resp.getWriter().println("<html><body><p>Use " + "POST instead!</p></body></html>");
     }
 
     @Override
@@ -40,7 +42,7 @@ public class GuessServlet extends HttpServlet {
         System.out.println("Winning Secret " + winningSecret);
 
         // Linked List to maintain the history of guesses in order
-        LinkedList guessHistory = (LinkedList<Guess>) session.getAttribute("guessHistory");
+		LinkedList<Guess> guessHistory = (LinkedList<Guess>) session.getAttribute("guessHistory");
         if(guessHistory == null)
             guessHistory = new LinkedList<Guess>();
 
@@ -72,9 +74,9 @@ public class GuessServlet extends HttpServlet {
             out.println("<p style=\"color:red\">Your " + playerGuess + " was incorrect. You guessed "
                     + playerGuess.whichIsWrong(winningSecret)
                     + " incorrectly. Please try again</p>");
-            ArrayList<String> computerRooms = (ArrayList<String>) session.getAttribute("computerRoomsList");
-            ArrayList<String> computerSuspects = (ArrayList<String>) session.getAttribute("computerSuspectsList");
-            ArrayList<String> computerWeapons = (ArrayList<String>) session.getAttribute("computerWeaponsList");
+            List<String> computerRooms = (List<String>) session.getAttribute("computerRoomsList");
+            List<String> computerSuspects = (List<String>) session.getAttribute("computerSuspectsList");
+            List<String> computerWeapons = (List<String>) session.getAttribute("computerWeaponsList");
 
             // Randomly generate a computer guess and keep generating until the guess is unique by checking
             // against history
