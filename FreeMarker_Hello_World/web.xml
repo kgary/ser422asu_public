@@ -5,10 +5,6 @@
 	id="WebApp_ID" version="2.5">
 
 	<display-name>FreeMarker_Hello_World</display-name>
-	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-	</welcome-file-list>
-
 	<servlet>
 		<servlet-name>freemarker</servlet-name>
 		<servlet-class>freemarker.ext.servlet.FreemarkerServlet</servlet-class>
@@ -58,7 +54,7 @@
 
 	<servlet-mapping>
 		<servlet-name>hello_servlet</servlet-name>
-		<url-pattern>/hello</url-pattern>
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
 	<!--
@@ -75,5 +71,4 @@
 			<!-- Nobody is allowed to visit these -->
 		</auth-constraint>
 	</security-constraint>
-
 </web-app>
