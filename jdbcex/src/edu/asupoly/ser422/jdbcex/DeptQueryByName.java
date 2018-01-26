@@ -17,16 +17,16 @@ public class DeptQueryByName
 
 	if (args.length != 5)
 	    {
-		System.out.println("USAGE: java edu.asupoly.ser422.jdbcex.DeptQueryByName <url> <user> <passwd> <driver> <dept name>");
+		System.out.println("USAGE: java edu.asupoly.ser422.jdbcex.DeptQueryByName <user> <passwd> <url> <driver> <dept name>");
 		System.exit(0);
 	    }
-	String _url = args[0];
+	String _url = args[2];
 	try {
 	    // Step 1: Load the JDBC driver
 	    Class.forName(args[3]);
 
 	    // Step 2: make a connection
-	    conn = DriverManager.getConnection(_url, args[1], args[2]);
+	    conn = DriverManager.getConnection(_url, args[0], args[1]);
 
 	    // Step 3: Create a statement
 	    stmt = conn.prepareStatement("Select * from Department WHERE dname=?");

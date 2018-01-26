@@ -22,14 +22,12 @@ public class DDLjdbcEx1 {
 
 	    // Step 2: make a connection
 	    conn = DriverManager.getConnection(_url, args[1], args[2]);
-
+	    conn.setAutoCommit(false);
+	    
 	    // Step 3: Create a statement
 	    stmt = conn.createStatement();
 
 	    // Step 4: Make a query
-	    stmt.executeUpdate("DROP TABLE tab1");
-	    stmt.close();
-
 	    stmt = conn.createStatement();	    
 	    stmt.executeUpdate("CREATE TABLE tab1 (id integer NOT NULL, name varchar(300)," +
 			       " PRIMARY KEY(id))");

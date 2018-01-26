@@ -23,6 +23,7 @@ public class DDLjdbcEx2 {
 
 	    // Step 2: make a connection
 	    conn = DriverManager.getConnection(_url, args[1], args[2]);
+	    conn.setAutoCommit(false);
 
 	    // Step 2.1 - get the DB MetaData
 	    DatabaseMetaData dbmd = conn.getMetaData();

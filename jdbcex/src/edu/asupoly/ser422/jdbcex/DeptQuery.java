@@ -15,15 +15,15 @@ public class DeptQuery
 		Statement stmt = null;
 		Connection conn = null;
 
-		if (args.length != 3)
+		if (args.length != 4)
 		{
-			System.out.println("USAGE: java edu.asupoly.ser422.jdbcex.DeptQuery <user> <passwd> <url>");
+			System.out.println("USAGE: java edu.asupoly.ser422.jdbcex.DeptQuery <user> <passwd> <url> <driver>");
 			System.exit(0);
 		}
 		String _url = args[2];
 		try {
 			// Step 1: Load the JDBC driver
-			Class.forName("org.postgresql.Driver");
+			Class.forName(args[3]);
 
 			// Step 2: make a connection
 			conn = DriverManager.getConnection(_url, args[0], args[1]);

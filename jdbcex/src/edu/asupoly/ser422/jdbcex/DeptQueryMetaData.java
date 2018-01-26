@@ -16,7 +16,7 @@ public class DeptQueryMetaData
 
 	if (args.length != 4)
 	    {
-		System.out.println("USAGE: java edu.asupoly.ser422.jdbcex.DeptQuery <url> <user> <passwd> <driver>");
+		System.out.println("USAGE: java edu.asupoly.ser422.jdbcex.DeptQuery <user> <passwd> <url> <driver>");
 		System.exit(0);
 	    }
 	String _url = args[2];
@@ -25,13 +25,13 @@ public class DeptQueryMetaData
 	    Class.forName(args[3]);
 
 	    // Step 2: make a connection
-	    conn = DriverManager.getConnection(_url, args[1], args[2]);
+	    conn = DriverManager.getConnection(_url, args[0], args[1]);
 
 	    // Step 3: Create a statement
 	    stmt = conn.createStatement();
 
 	    // Step 4: Make a query
-	    rs = stmt.executeQuery("Select * from dept");
+	    rs = stmt.executeQuery("Select * from department");
 
 	    // Step 5: Use ResultSetMetaData to discover the size of the returned relation
 	    ResultSetMetaData metaData = rs.getMetaData();
