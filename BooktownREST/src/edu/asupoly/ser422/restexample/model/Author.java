@@ -4,6 +4,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Author {
+	public Author() {}
+	
 	public Author(int id, String lname, String fname) {
 		__id = id;
 		__lastName  = lname;
