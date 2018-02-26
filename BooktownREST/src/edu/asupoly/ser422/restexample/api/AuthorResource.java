@@ -13,7 +13,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-//import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response;
 
 import edu.asupoly.ser422.restexample.model.Author;
@@ -49,6 +48,11 @@ public class AuthorResource {
     public Response createAuthor(String name) {
 		String[] names = name.split(" ");
 		int aid = __bService.createAuthor(names[0], names[1]);
+		if (aid == -1) {
+			return Response.status(500).entity("{ \" EXCEPTION INSERTING INTO DATABASE! \"}").build();
+		} else if (aid == 0) {
+			return Response.status(500).entity("{ \" ERROR INSERTING INTO DATABASE! \"}").build();
+		}
 		return Response.status(201).entity("{ \"Author\" : \"" + aid + "\"}").build();
     }
 	

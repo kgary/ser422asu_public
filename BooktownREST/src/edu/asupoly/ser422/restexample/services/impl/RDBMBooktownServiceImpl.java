@@ -1,10 +1,10 @@
 package edu.asupoly.ser422.restexample.services.impl;
 
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -17,41 +17,40 @@ import java.util.Properties;
 
 //A simple impl of interface BooktownService
 public class RDBMBooktownServiceImpl implements BooktownService {
-	private static int __id = 1;
-	
+	private static Properties __dbProperties;
 	private static String __jdbcUrl;
 	private static String __jdbcUser;
 	private static String __jdbcPasswd;
 	private static String __jdbcDriver;
 
+	private Connection getConnection() throws Exception {
+		try {
+			Class.forName(__jdbcDriver);
+			return DriverManager.getConnection(__jdbcUrl, __jdbcUser, __jdbcPasswd);
+		} catch (Exception exc) {
+			throw exc;
+		}
+	}
+	
 	// Only instantiated by factory within package scope
 	public RDBMBooktownServiceImpl() {
-		// read your db init properties
 	}
 
 	public List<Author> getAuthors() {
-		Connection conn = null;
+		Connection conn = null; 
 		Statement stmt = null;
 		ResultSet rs = null;
 		List<Author> rval = new ArrayList<Author>();
 		try {
-			try {
-				Class.forName(__jdbcDriver);
-			}
-			catch (Throwable t) {
-				t.printStackTrace();
-				return null;
-			}
-
-			conn = DriverManager.getConnection(__jdbcUrl, __jdbcUser, __jdbcPasswd);
+			conn = getConnection();
 
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("Select id, last_name, first_name from Authors");
+			rs = stmt.executeQuery(__dbProperties.getProperty("sql.getAuthors"));
 			while (rs.next()) {
 				rval.add(new Author(rs.getInt(1), rs.getString(2), rs.getString(3)));
 			}
 		}
-		catch (SQLException se) {
+		catch (Exception se) {
 			se.printStackTrace();
 			return null;
 		}
@@ -79,19 +78,14 @@ public class RDBMBooktownServiceImpl implements BooktownService {
 			return -1;
 		}
 		Connection conn = null;
-		Statement stmt = null;
+		PreparedStatement stmt = null;
 		try {
-			try {
-				Class.forName("org.postgresql.Driver");
-			}
-			catch (Throwable t) {
-				t.printStackTrace();
-				return -1;
-			}
-			conn = DriverManager.getConnection(__jdbcUrl, __jdbcUser, __jdbcPasswd);
-			stmt = conn.createStatement();
-			return stmt.executeUpdate("INSERT INTO Authors (id, last_name, first_name) VALUES (" + __id++ + ", '" + lname + "', '" + fname + "')");
-		} catch (SQLException sqe) {
+			conn = getConnection();
+			stmt = conn.prepareStatement(__dbProperties.getProperty("sql.createAuthor"));
+			stmt.setString(1, lname);
+			stmt.setString(2, fname);
+			return stmt.executeUpdate();
+		} catch (Exception sqe) {
 			sqe.printStackTrace();
 			return -1;
 		} finally {  // why nest all of these try/finally blocks?
@@ -108,20 +102,14 @@ public class RDBMBooktownServiceImpl implements BooktownService {
 
 	public boolean deleteAuthor(int authorId) {
 		Connection conn = null;
-		Statement stmt = null;
+		PreparedStatement stmt = null;
 		try {
-			try {
-				Class.forName("org.postgresql.Driver");
-			}
-			catch (Throwable t) {
-				t.printStackTrace();
-				return false;
-			}
-			conn = DriverManager.getConnection(__jdbcUrl, __jdbcUser, __jdbcPasswd);
-			stmt = conn.createStatement();
-			stmt.executeUpdate("DELETE FROM Authors WHERE id = " + authorId);
+			conn = getConnection();
+			stmt = conn.prepareStatement(__dbProperties.getProperty("sql.deleteAuthor"));
+			stmt.setInt(1, authorId);
+			stmt.executeUpdate();
 			return true;
-		} catch (SQLException sqe) {
+		} catch (Exception sqe) {
 			sqe.printStackTrace();
 			return false;
 		} finally {  // why nest all of these try/finally blocks?
@@ -136,34 +124,60 @@ public class RDBMBooktownServiceImpl implements BooktownService {
 		}
 	}
 
-	
-	// This class is going to look for a file named rdbm.properties in the classpath
-	// to get its initial settings
-	static {
-		try {
-			Properties dbProperties = new Properties();
-			dbProperties.load(RDBMBooktownServiceImpl.class.getClassLoader().getResourceAsStream("rdbm.properties"));
-			__jdbcUrl    = dbProperties.getProperty("jdbcUrl");
-			__jdbcUser   = dbProperties.getProperty("jdbcUser");
-			__jdbcPasswd = dbProperties.getProperty("jdbcPasswd");
-			__jdbcDriver = dbProperties.getProperty("jdbcDriver");
-		} catch (Throwable t) {
-			t.printStackTrace();
-		} finally {
-		}
-	}
-
-
 	@Override
 	public Author getAuthor(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		Author author = null;
+		try {
+			conn = getConnection();
+			stmt = conn.prepareStatement(__dbProperties.getProperty("sql.getAuthor"));
+			stmt.setInt(1, id);
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				author = new Author(rs.getInt(1), rs.getString(2), rs.getString(3));
+			}
+		} catch (Exception sqe) {
+			sqe.printStackTrace();
+		} finally {  // why nest all of these try/finally blocks?
+			try {
+				rs.close();
+				if (stmt != null) { stmt.close(); }
+			} catch (Exception e2) { e2.printStackTrace(); }
+			finally {
+				try {
+					if (conn != null) { conn.close(); }
+				} catch (Exception e3) { e3.printStackTrace(); }
+			}
+		}
+		return author;
 	}
 
 	@Override
 	public boolean updateAuthor(Author author) {
-		// TODO Auto-generated method stub
-		return false;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			conn = getConnection();
+			stmt = conn.prepareStatement(__dbProperties.getProperty("sql.updateAuthor"));
+			stmt.setString(1, author.getLastName());
+			stmt.setString(2, author.getFirstName());
+			stmt.setInt(3, author.getAuthorId());
+			return (stmt.executeUpdate() > 0);
+		} catch (Exception sqe) {
+			sqe.printStackTrace();
+			return false;
+		} finally {  // why nest all of these try/finally blocks?
+			try {
+					if (stmt != null) { stmt.close(); }
+			} catch (Exception e2) { e2.printStackTrace(); }
+			finally {
+				try {
+					if (conn != null) { conn.close(); }
+				} catch (Exception e3) { e3.printStackTrace(); }
+			}
+		}
 	}
 
 	@Override
@@ -208,4 +222,19 @@ public class RDBMBooktownServiceImpl implements BooktownService {
 		return null;
 	}
 
-}
+	// This class is going to look for a file named rdbm.properties in the classpath
+	// to get its initial settings
+	static {
+		try {
+			__dbProperties = new Properties();
+			__dbProperties.load(RDBMBooktownServiceImpl.class.getClassLoader().getResourceAsStream("rdbm.properties"));
+			__jdbcUrl    = __dbProperties.getProperty("jdbcUrl");
+			__jdbcUser   = __dbProperties.getProperty("jdbcUser");
+			__jdbcPasswd = __dbProperties.getProperty("jdbcPasswd");
+			__jdbcDriver = __dbProperties.getProperty("jdbcDriver");
+		} catch (Throwable t) {
+			t.printStackTrace();
+		} finally {
+		}
+	}	
+}	
