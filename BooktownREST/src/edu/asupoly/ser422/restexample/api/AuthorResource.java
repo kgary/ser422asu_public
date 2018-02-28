@@ -12,17 +12,24 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 import edu.asupoly.ser422.restexample.model.Author;
 import edu.asupoly.ser422.restexample.services.BooktownService;
 import edu.asupoly.ser422.restexample.services.BooktownServiceFactory;
 
 @Path("/authors")
-@Produces(MediaType.APPLICATION_JSON)
+@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 public class AuthorResource {
 	private static BooktownService __bService = BooktownServiceFactory.getInstance();
+	
+	// Technique for location header taken from
+	// http://usna86-techbits.blogspot.com/2013/02/how-to-return-location-header-from.html
+	@Context
+	private UriInfo _uriInfo;
 	
 	@GET
 	public List<Author> getAuthors() {
@@ -46,6 +53,7 @@ public class AuthorResource {
 	@POST
 	@Consumes("text/plain")
     public Response createAuthor(String name) {
+		
 		String[] names = name.split(" ");
 		int aid = __bService.createAuthor(names[0], names[1]);
 		if (aid == -1) {
@@ -53,7 +61,9 @@ public class AuthorResource {
 		} else if (aid == 0) {
 			return Response.status(500).entity("{ \" ERROR INSERTING INTO DATABASE! \"}").build();
 		}
-		return Response.status(201).entity("{ \"Author\" : \"" + aid + "\"}").build();
+		return Response.status(201)
+				.header("Location", String.format("%s/%s",_uriInfo.getAbsolutePath().toString(), aid))
+				.entity("{ \"Author\" : \"" + aid + "\"}").build();
     }
 	
 	@PUT
