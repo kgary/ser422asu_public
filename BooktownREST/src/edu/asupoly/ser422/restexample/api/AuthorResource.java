@@ -32,6 +32,38 @@ public class AuthorResource {
 	@Context
 	private UriInfo _uriInfo;
 	
+	 /**
+     * @apiDefine BadRequestError
+     * @apiError (Error 4xx) {400} BadRequest Bad Request Encountered
+     * */
+    /** @apiDefine ActivityNotFoundError
+     * @apiError (Error 4xx) {404} NotFound Activity cannot be found
+     * */
+    /**
+     * @apiDefine InternalServerError
+     * @apiError (Error 5xx) {500} InternalServerError Something went wrong at server, Please contact the administrator!
+     * */
+    /**
+     * @apiDefine NotImplementedError
+     * @apiError (Error 5xx) {501} NotImplemented The resource has not been implemented. Please keep patience, our developers are working hard on it!!
+     * */
+
+    /**
+     * @api {get} /authors Get list of Authors
+     * @apiName getAuthors
+     * @apiGroup Authors
+     *
+     * @apiUse BadRequestError
+     * @apiUse InternalServerError
+     * 
+     * @apiSuccessExample Success-Response:
+     * 	HTTP/1.1 200 OK
+     * 	[
+     *   {"authorId":1111,"firstName":"Ariel","lastName":"Denham"},
+     *   {"authorId":1212,"firstName":"John","lastName":"Worsley"}
+     *  ]
+     * 
+     * */
 	@GET
 	public List<Author> getAuthors() {
 		return __bService.getAuthors();
