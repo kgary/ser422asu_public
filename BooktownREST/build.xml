@@ -28,8 +28,15 @@
     <copy file="${warfile}" todir="${tomcat_webapps}" />
   </target>
 
+  <!-- This example dist target merely jars up the webapp files. -->
+  <target name="submit" depends="clean">
+    <jar destfile="${submit.jar}" basedir="." excludes="bin/**,${srclib}/**,classes/**,build/**">
+    </jar>
+  </target>	
+  	
   <target name="clean">
     <delete file="${warfile}" />
+  	<delete file="${submit.jar}" />
     <delete dir="${destdir}"/>
   </target>
 

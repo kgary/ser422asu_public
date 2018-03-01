@@ -31,6 +31,9 @@ public class Author {
 		this.__firstName = __firstName;
 	}
 	
+	public String toString() {
+		return "Author ID " + getAuthorId() + ", lastName " + getLastName() + ", firstName " + getFirstName();
+	}
 	private int    __id;
 	private String __lastName;
 	private String __firstName;
