@@ -3,10 +3,10 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 
 --
--- Name: DATABASE booktown; Type: COMMENT; Schema: -; Owner: 
+-- Name: DATABASE booktown; Type: COMMENT; Schema: -; Owner:
 --
 
-COMMENT ON DATABASE booktownres IS 'The Book Town Database for SER422 REST example.';
+COMMENT ON DATABASE booktownrest IS 'The Book Town Database for SER422 REST example.';
 
 --
 -- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: postgres
@@ -50,7 +50,7 @@ SELECT pg_catalog.setval('author_ids', 25044, true);
 
 
 --
--- Name: authors; Type: TABLE; Schema: public; Owner: cst533; Tablespace: 
+-- Name: authors; Type: TABLE; Schema: public; Owner: cst533; Tablespace:
 --
 
 CREATE TABLE authors (
@@ -78,7 +78,7 @@ CREATE SEQUENCE book_ids
 SELECT pg_catalog.setval('book_ids', 41478, true);
 
 --
--- Name: books; Type: TABLE; Schema: public; Owner: cst533; Tablespace: 
+-- Name: books; Type: TABLE; Schema: public; Owner: cst533; Tablespace:
 --
 
 CREATE TABLE books (
@@ -108,7 +108,7 @@ SELECT pg_catalog.setval('subject_ids', 15, true);
 
 
 --
--- Name: subjects; Type: TABLE; Schema: public; Owner: cst533; Tablespace: 
+-- Name: subjects; Type: TABLE; Schema: public; Owner: cst533; Tablespace:
 --
 
 CREATE TABLE subjects (
@@ -180,23 +180,22 @@ INSERT INTO subjects VALUES (14, 'Science', 'Productivity Ave');
 INSERT INTO subjects VALUES (15, 'Science Fiction', 'Main St');
 
 --
--- Name: authors_pkey; Type: CONSTRAINT; Schema: public; Owner: cst533; Tablespace: 
+-- Name: authors_pkey; Type: CONSTRAINT; Schema: public; Owner: cst533; Tablespace:
 --
 
 ALTER TABLE ONLY authors
     ADD CONSTRAINT authors_pkey PRIMARY KEY (id);
 
 --
--- Name: books_id_pkey; Type: CONSTRAINT; Schema: public; Owner: cst533; Tablespace: 
+-- Name: books_id_pkey; Type: CONSTRAINT; Schema: public; Owner: cst533; Tablespace:
 --
 
 ALTER TABLE ONLY books
     ADD CONSTRAINT books_id_pkey PRIMARY KEY (id);
 
 --
--- Name: subjects_pkey; Type: CONSTRAINT; Schema: public; Owner: cst533; Tablespace: 
+-- Name: subjects_pkey; Type: CONSTRAINT; Schema: public; Owner: cst533; Tablespace:
 --
 
 ALTER TABLE ONLY subjects
     ADD CONSTRAINT subjects_pkey PRIMARY KEY (id);
-
