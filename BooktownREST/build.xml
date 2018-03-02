@@ -29,7 +29,7 @@
 
   <target name="apidoc">
 	<mkdir dir="${apidocdir}"/>
-  	<exec dir="/Users/kevinagary/ser422/ser422asu_public/BooktownREST" executable="/usr/local/bin/apidoc">
+  	<exec dir="." executable="apidoc">
   		<arg line="-i ./${srcdir} -o ./${apidocdir}"/>
   	</exec>
   </target>
