@@ -16,7 +16,7 @@ COMMENT ON SCHEMA public IS 'Standard public schema';
 SET search_path = public, pg_catalog;
 
 --
--- Name: author_id_seq; Type: SEQUENCE; Schema: public; Owner: cst533
+-- Name: author_id_seq; Type: SEQUENCE; Schema: public; Owner: kgary
 --
 
 CREATE SEQUENCE author_id_seq
@@ -26,14 +26,14 @@ CREATE SEQUENCE author_id_seq
     CACHE 1;
 
 --
--- Name: author_id_seq; Type: SEQUENCE SET; Schema: public; Owner: cst533
+-- Name: author_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kgary
 --
 
 SELECT pg_catalog.setval('author_id_seq', 30006, true);
 
 
 --
--- Name: author_ids; Type: SEQUENCE; Schema: public; Owner: cst533
+-- Name: author_ids; Type: SEQUENCE; Schema: public; Owner: kgary
 --
 
 CREATE SEQUENCE author_ids
@@ -43,14 +43,14 @@ CREATE SEQUENCE author_ids
     CACHE 1;
 
 --
--- Name: author_ids; Type: SEQUENCE SET; Schema: public; Owner: cst533
+-- Name: author_ids; Type: SEQUENCE SET; Schema: public; Owner: kgary
 --
 
 SELECT pg_catalog.setval('author_ids', 25044, true);
 
 
 --
--- Name: authors; Type: TABLE; Schema: public; Owner: cst533; Tablespace:
+-- Name: authors; Type: TABLE; Schema: public; Owner: kgary; Tablespace:
 --
 
 CREATE TABLE authors (
@@ -61,7 +61,7 @@ CREATE TABLE authors (
 
 
 --
--- Name: book_ids; Type: SEQUENCE; Schema: public; Owner: cst533
+-- Name: book_ids; Type: SEQUENCE; Schema: public; Owner: kgary
 --
 
 CREATE SEQUENCE book_ids
@@ -72,13 +72,13 @@ CREATE SEQUENCE book_ids
 
 
 --
--- Name: book_ids; Type: SEQUENCE SET; Schema: public; Owner: cst533
+-- Name: book_ids; Type: SEQUENCE SET; Schema: public; Owner: kgary
 --
 
 SELECT pg_catalog.setval('book_ids', 41478, true);
 
 --
--- Name: books; Type: TABLE; Schema: public; Owner: cst533; Tablespace:
+-- Name: books; Type: TABLE; Schema: public; Owner: kgary; Tablespace:
 --
 
 CREATE TABLE books (
@@ -90,7 +90,7 @@ CREATE TABLE books (
 
 
 --
--- Name: subject_ids; Type: SEQUENCE; Schema: public; Owner: cst533
+-- Name: subject_ids; Type: SEQUENCE; Schema: public; Owner: kgary
 --
 
 CREATE SEQUENCE subject_ids
@@ -101,14 +101,14 @@ CREATE SEQUENCE subject_ids
 
 
 --
--- Name: subject_ids; Type: SEQUENCE SET; Schema: public; Owner: cst533
+-- Name: subject_ids; Type: SEQUENCE SET; Schema: public; Owner: kgary
 --
 
 SELECT pg_catalog.setval('subject_ids', 15, true);
 
 
 --
--- Name: subjects; Type: TABLE; Schema: public; Owner: cst533; Tablespace:
+-- Name: subjects; Type: TABLE; Schema: public; Owner: kgary; Tablespace:
 --
 
 CREATE TABLE subjects (
@@ -138,7 +138,7 @@ INSERT INTO authors VALUES (1213, 'Brookins', 'Andrew');
 
 
 --
--- Data for Name: books; Type: TABLE DATA; Schema: public; Owner: cst533
+-- Data for Name: books; Type: TABLE DATA; Schema: public; Owner: kgary
 --
 
 INSERT INTO books VALUES (7808, 'The Shining', 4156, 9);
@@ -159,7 +159,7 @@ INSERT INTO books VALUES (41472, 'Practical PostgreSQL', 1212, 4);
 
 
 --
--- Data for Name: subjects; Type: TABLE DATA; Schema: public; Owner: cst533
+-- Data for Name: subjects; Type: TABLE DATA; Schema: public; Owner: kgary
 --
 
 INSERT INTO subjects VALUES (0, 'Arts', 'Creativity St');
@@ -180,21 +180,21 @@ INSERT INTO subjects VALUES (14, 'Science', 'Productivity Ave');
 INSERT INTO subjects VALUES (15, 'Science Fiction', 'Main St');
 
 --
--- Name: authors_pkey; Type: CONSTRAINT; Schema: public; Owner: cst533; Tablespace:
+-- Name: authors_pkey; Type: CONSTRAINT; Schema: public; Owner: kgary; Tablespace:
 --
 
 ALTER TABLE ONLY authors
     ADD CONSTRAINT authors_pkey PRIMARY KEY (id);
 
 --
--- Name: books_id_pkey; Type: CONSTRAINT; Schema: public; Owner: cst533; Tablespace:
+-- Name: books_id_pkey; Type: CONSTRAINT; Schema: public; Owner: kgary; Tablespace:
 --
 
 ALTER TABLE ONLY books
     ADD CONSTRAINT books_id_pkey PRIMARY KEY (id);
 
 --
--- Name: subjects_pkey; Type: CONSTRAINT; Schema: public; Owner: cst533; Tablespace:
+-- Name: subjects_pkey; Type: CONSTRAINT; Schema: public; Owner: kgary; Tablespace:
 --
 
 ALTER TABLE ONLY subjects

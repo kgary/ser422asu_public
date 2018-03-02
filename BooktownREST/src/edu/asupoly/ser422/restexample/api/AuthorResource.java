@@ -1,7 +1,6 @@
 package edu.asupoly.ser422.restexample.api;
 
 import java.util.List;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
