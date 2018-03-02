@@ -31,13 +31,13 @@ public class RDBMBooktownServiceImpl implements BooktownService {
 			throw exc;
 		}
 	}
-	
+
 	// Only instantiated by factory within package scope
 	public RDBMBooktownServiceImpl() {
 	}
 
 	public List<Author> getAuthors() {
-		Connection conn = null; 
+		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
 		List<Author> rval = new ArrayList<Author>();
@@ -81,10 +81,19 @@ public class RDBMBooktownServiceImpl implements BooktownService {
 		PreparedStatement stmt = null;
 		try {
 			conn = getConnection();
-			stmt = conn.prepareStatement(__dbProperties.getProperty("sql.createAuthor"));
+			stmt = conn.prepareStatement(__dbProperties.getProperty("sql.createAuthor"),
+			 										Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, lname);
 			stmt.setString(2, fname);
-			return stmt.executeUpdate();
+			// return stmt.executeUpdate();
+			int updatedRows = stmt.executeUpdate();
+			if(updatedRows > 0){
+				ResultSet generatedKeys = stmt.getGeneratedKeys();
+				generatedKeys.next();
+				return generatedKeys.getInt(1);
+			}else{
+				return -1;
+			}
 		} catch (Exception sqe) {
 			sqe.printStackTrace();
 			return -1;
@@ -236,5 +245,5 @@ public class RDBMBooktownServiceImpl implements BooktownService {
 			t.printStackTrace();
 		} finally {
 		}
-	}	
-}	
+	}
+}
