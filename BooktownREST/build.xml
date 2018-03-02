@@ -1,7 +1,7 @@
 <project name="RestExampleAPI" default="deploy">
 
   <property file="build.properties" />
-  
+
   <path id="classpath">
 		<fileset dir="./">
 			<include name="${srclib}/*.jar" />
@@ -23,7 +23,7 @@
     <copy file="web.xml" todir="${destdir}/WEB-INF"/>
   	<copy todir="${destdir}/${apidocdir}">
   		<fileset dir="${apidocdir}"/>
-  	</copy>	
+  	</copy>
     <war destfile="${warfile}" basedir="${destdir}" needxmlfile="false"/>
   </target>
 
@@ -33,7 +33,7 @@
   		<arg line="-i ./${srcdir} -o ./${apidocdir}"/>
   	</exec>
   </target>
-  	
+
   <target name="deploy" depends="build">
     <copy file="${warfile}" todir="${tomcat_webapps}" />
   </target>
@@ -42,8 +42,8 @@
   <target name="submit" depends="clean">
     <jar destfile="${submit.jar}" basedir="." excludes="bin/**,${srclib}/**,classes/**,build/**">
     </jar>
-  </target>	
-  	
+  </target>
+
   <target name="clean">
     <delete file="${warfile}" />
   	<delete file="${submit.jar}" />
