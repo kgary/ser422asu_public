@@ -73,7 +73,7 @@ public class SimpleBooktownServiceImpl implements BooktownService {
     public List<Book> getBooks() {
 		List<Book> deepClone = new ArrayList<Book>();
 		for (Book b : __books) {
-			deepClone.add(new Book(b.getAuthorId(), b.getTitle(), b.getAuthorId(), b.getSubjectId()));
+			deepClone.add(new Book(b.getBookId(), b.getTitle(), b.getAuthorId(), b.getSubjectId()));
 		}
 		return deepClone;
     }
