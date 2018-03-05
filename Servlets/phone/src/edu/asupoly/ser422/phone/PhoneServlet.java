@@ -31,11 +31,17 @@ public class PhoneServlet extends HttpServlet {
 			out.println("</BODY></HTML>"); 
 			return;
 		}
-		// now get the phonebook file as an input stream
-		ServletContext sc = getServletContext();
-		InputStream is = sc.getResourceAsStream(_filename);
 
-		PhoneBook pbook = new PhoneBook(is);
+		// now get the phonebook file as an input stream
+		// here we use an alternative method that gets it relative to the CLASSPATH
+		InputStream is = this.getClass().getClassLoader().getResourceAsStream(_filename);
+		PhoneBook pbook = null;
+		try {
+			pbook = new PhoneBook(is);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		try {
 			if (action.equalsIgnoreCase("List"))	{

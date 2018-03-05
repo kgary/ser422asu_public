@@ -9,18 +9,18 @@
   <servlet>
     <servlet-name>Phonebook</servlet-name>
     <servlet-class>edu.asupoly.ser422.phone.PhoneServlet</servlet-class>
-    <init-param>
-    	<param-name>phonebook</param-name>
-    	<param-value>/resources/phonebook.txt</param-value>
+    	<init-param>
+    		<param-name>phonebook</param-name>
+    		<param-value>/resources/phonebook.txt</param-value>
   	</init-param>
-    <load-on-startup>1</load-on-startup>
+    	<load-on-startup>1</load-on-startup>
   </servlet>
-    <servlet>
+  <servlet>
     <servlet-name>BadPhonebook</servlet-name>
     <servlet-class>edu.asupoly.ser422.phone.BadPhoneServlet</servlet-class>
     <init-param>
-    	<param-name>phonebook</param-name>
-    	<param-value>/resources/phonebook.txt</param-value>
+    		<param-name>phonebook</param-name>
+    		<param-value>/resources/phonebook.txt</param-value>
   	</init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
