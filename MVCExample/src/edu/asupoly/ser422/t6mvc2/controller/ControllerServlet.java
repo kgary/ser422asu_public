@@ -31,7 +31,6 @@ public class ControllerServlet extends HttpServlet {
     private static Logger logger = Logger.getLogger(
             "edu.asupoly.ser422.t6mvc2.controller.ControllerServlet");
     private static String errorPage = "error.jsp";
-    //private static String successPage = "success.jsp";
     private static String successPage = "/success";
     private static Map<String, ActionHandler> handlers = new HashMap<String, ActionHandler>();
     private static Map<String, String> pageViews = new HashMap<String, String>();
