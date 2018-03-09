@@ -10,7 +10,7 @@ import edu.asupoly.ser422.t6mvc2.service.LoginService;
 
 public class LoginHandler implements ActionHandler {
 
-	public String handleIt(Map params, HttpSession session) {
+	public String handleIt(Map<String, String[]> params, HttpSession session) {
 		String returnPage = "loginfailure";
 		String username = ((String[]) params.get("name"))[0];
 
