@@ -4,6 +4,9 @@
 **/classes/
 **/bin/
 
+# apidocs where we use it
+**/apidocs/
+
 # Emacs stuff
 .#*
 *~

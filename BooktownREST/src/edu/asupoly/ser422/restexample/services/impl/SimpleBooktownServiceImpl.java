@@ -36,11 +36,29 @@ public class SimpleBooktownServiceImpl implements BooktownService {
 	}
 
 	public boolean deleteAuthor(int authorId) {
+		boolean rval = false;
 		try {
-			return (__authors.remove(authorId) != null);
+			// Find any Books pointing at this author
+			List<Book> books = new ArrayList<Book>();
+			for (Book b : __books) {
+				if (b.getAuthorId() == authorId) {
+					b.setAuthorId(-1);  // I guess -1 will mean marked for deletion
+					books.add(b);
+				}
+			}
+			Author a = __authors.remove(authorId);
+			if (!(rval = (a != null))) {
+				// if we couldn't remove that book we have to undo the books above,
+				// which is why we hung onto them!
+				for (Book b : books) {
+					b.setAuthorId(authorId);
+				}
+			}
 		} catch (Exception exc) {
-			return false;
+			exc.printStackTrace();
+			rval = false;
 		}
+		return rval;
 	}
 	
 	@Override
