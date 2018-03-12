@@ -2,19 +2,13 @@ package edu.asupoly.ser422.t6mvc2.controller;
 
 import edu.asupoly.ser422.t6mvc2.handler.ActionHandler;
 import edu.asupoly.ser422.t6mvc2.handler.LoginHandler;
-import edu.asupoly.ser422.t6mvc2.model.LoginCredentials;
-import edu.asupoly.ser422.t6mvc2.model.User;
-import edu.asupoly.ser422.t6mvc2.service.LoginService;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,8 +22,6 @@ public class ControllerServlet extends HttpServlet {
      * 
      */
     private static final long serialVersionUID = 1L;
-    private static Logger logger = Logger.getLogger(
-            "edu.asupoly.ser422.t6mvc2.controller.ControllerServlet");
     private static String errorPage = "error.jsp";
     private static String successPage = "/success";
     private static Map<String, ActionHandler> handlers = new HashMap<String, ActionHandler>();

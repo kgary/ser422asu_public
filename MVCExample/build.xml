@@ -27,7 +27,6 @@
       <!-- Make sure you set your classpath! -->
       <classpath>
         <fileset dir="${tomcat.home}/lib" includes="servlet-api.jar"/>
-      	<fileset dir="${lib.dir}" includes="*.jar"/>
         <pathelement path="${classes.dir}" />
       </classpath>
     </javac>
@@ -50,13 +49,10 @@
     <copy todir="${build.home}/WEB-INF">
       <fileset dir="." includes="${classes.dir}/**,${lib.dir}/**"/>
     </copy>
-    <copy todir="${build.home}/WEB-INF/${classes.dir}">
-      <fileset dir="${properties.dir}"/>
-    </copy>
-    <copy todir="${build.home}">
-      <fileset dir="${resources.dir}" includes="*.html, *.jsp"/>
-    </copy>
     <copy file="web.xml" tofile="${build.home}/WEB-INF/web.xml"/>
+    <copy todir="${build.home}">
+      <fileset dir="${resources.dir}"/>
+    </copy>
   </target>
     
   <!-- This example dist target merely jars up the webapp files. -->

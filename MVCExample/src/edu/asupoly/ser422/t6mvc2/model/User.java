@@ -7,7 +7,7 @@ import java.util.List;
 public class User {
     private String username;
     private String displayName;
-    private List preferences;
+    private List<String> preferences;
 
     /**
      * Get method for username
@@ -50,7 +50,7 @@ public class User {
      *
      * @return List of user preferences
      */
-    public List getPreferences() {
+    public List<String> getPreferences() {
         return preferences;
     }
 
@@ -59,7 +59,7 @@ public class User {
      *
      * @param preferences List of user preferences
      */
-    public void setPreferences(List preferences) {
+    public void setPreferences(List<String> preferences) {
         this.preferences = preferences;
     }
 }
