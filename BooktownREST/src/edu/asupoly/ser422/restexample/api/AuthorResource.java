@@ -84,6 +84,7 @@ public class AuthorResource {
 	@GET
 	@Path("/{authorId}")
 	public Response getAuthor(@PathParam("authorId") int aid) {
+		// This isn't correct - what if the authorId is not for an active author?
 		Author author = __bService.getAuthor(aid);
 		// let's use Jackson instead. ObjectMapper will build a JSON string and we use
 		// the ResponseBuilder to use that. Note the result looks the same
@@ -115,11 +116,12 @@ public class AuthorResource {
 		}
 	}
 	*/
-	/* This was the first version of POST we did
+	/* This was the first version of POST we did 
 	@POST
 	@Consumes("text/plain")
     public int createAuthor(String name) {
 		String[] names = name.split(" ");
+		// not handled - what if this returns -1?
 		int aid = __bService.createAuthor(names[0], names[1]);
 		return aid;
     }

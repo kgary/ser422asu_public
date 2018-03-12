@@ -14,15 +14,16 @@ import edu.asupoly.ser422.restexample.model.Subject;
 import edu.asupoly.ser422.restexample.services.BooktownService;
 
 import java.util.Properties;
+import java.util.Random;
 
 //A simple impl of interface BooktownService
-public class RDBMBooktownServiceImpl implements BooktownService {
+public class RDBMBooktownServiceImpl extends ABooktownServiceImpl {
 	private static Properties __dbProperties;
 	private static String __jdbcUrl;
 	private static String __jdbcUser;
 	private static String __jdbcPasswd;
 	private static String __jdbcDriver;
-
+	
 	private Connection getConnection() throws Exception {
 		try {
 			Class.forName(__jdbcDriver);
@@ -81,16 +82,15 @@ public class RDBMBooktownServiceImpl implements BooktownService {
 		PreparedStatement stmt = null;
 		try {
 			conn = getConnection();
-			stmt = conn.prepareStatement(__dbProperties.getProperty("sql.createAuthor"),
-			 										Statement.RETURN_GENERATED_KEYS);
-			stmt.setString(1, lname);
-			stmt.setString(2, fname);
+			stmt = conn.prepareStatement(__dbProperties.getProperty("sql.createAuthor"));
+			int generatedKey = generateKey(1, 99999);
+			stmt.setInt(1, generatedKey); 
+			stmt.setString(2, lname);
+			stmt.setString(3, fname);
 			// return stmt.executeUpdate();
 			int updatedRows = stmt.executeUpdate();
 			if(updatedRows > 0){
-				ResultSet generatedKeys = stmt.getGeneratedKeys();
-				generatedKeys.next();
-				return generatedKeys.getInt(1);
+				return generatedKey;
 			}else{
 				return -1;
 			}

@@ -15,32 +15,6 @@ COMMENT ON DATABASE booktownrest IS 'The Book Town Database for SER422 REST exam
 COMMENT ON SCHEMA public IS 'Standard public schema';
 SET search_path = public, pg_catalog;
 
---
--- Name: author_id_seq; Type: SEQUENCE; Schema: public; Owner: kgary
---
-
-CREATE SEQUENCE author_id_seq
-    INCREMENT BY 1
-    NO MAXVALUE
-    MINVALUE 30000
-    CACHE 1;
-
---
--- Name: author_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kgary
---
-
-SELECT pg_catalog.setval('author_id_seq', 30006, true);
-
-
---
--- Name: author_ids; Type: SEQUENCE; Schema: public; Owner: kgary
---
-
-CREATE SEQUENCE author_ids
-    INCREMENT BY 1
-    MAXVALUE 2147483647
-    MINVALUE 0
-    CACHE 1;
 
 --
 -- Name: author_ids; Type: SEQUENCE SET; Schema: public; Owner: kgary
@@ -54,28 +28,11 @@ SELECT pg_catalog.setval('author_ids', 25044, true);
 --
 
 CREATE TABLE authors (
-    id integer DEFAULT nextval('author_id_seq'::text) NOT NULL,
+    id integer NOT NULL,
     last_name text,
     first_name text
 );
 
-
---
--- Name: book_ids; Type: SEQUENCE; Schema: public; Owner: kgary
---
-
-CREATE SEQUENCE book_ids
-    INCREMENT BY 1
-    MAXVALUE 2147483647
-    MINVALUE 0
-    CACHE 1;
-
-
---
--- Name: book_ids; Type: SEQUENCE SET; Schema: public; Owner: kgary
---
-
-SELECT pg_catalog.setval('book_ids', 41478, true);
 
 --
 -- Name: books; Type: TABLE; Schema: public; Owner: kgary; Tablespace:
@@ -87,24 +44,6 @@ CREATE TABLE books (
     author_id integer,
     subject_id integer
 );
-
-
---
--- Name: subject_ids; Type: SEQUENCE; Schema: public; Owner: kgary
---
-
-CREATE SEQUENCE subject_ids
-    INCREMENT BY 1
-    MAXVALUE 2147483647
-    MINVALUE 0
-    CACHE 1;
-
-
---
--- Name: subject_ids; Type: SEQUENCE SET; Schema: public; Owner: kgary
---
-
-SELECT pg_catalog.setval('subject_ids', 15, true);
 
 
 --
