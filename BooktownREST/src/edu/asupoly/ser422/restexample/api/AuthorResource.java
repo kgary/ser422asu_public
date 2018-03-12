@@ -17,6 +17,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import edu.asupoly.ser422.restexample.model.Author;
 import edu.asupoly.ser422.restexample.services.BooktownService;
 import edu.asupoly.ser422.restexample.services.BooktownServiceFactory;
@@ -78,7 +80,7 @@ public class AuthorResource {
 	/* 
 	 * This is a second version - it uses Jackson's default mapping via ObjectMapper, which spits out
 	 * the same JSON as Jersey's internal version, so the output will look the same as version 1 when you run
-	 
+	 */
 	@GET
 	@Path("/{authorId}")
 	public Response getAuthor(@PathParam("authorId") int aid) {
@@ -93,9 +95,11 @@ public class AuthorResource {
 			return null;
 		}
 	}
-	 */
+	 
 	// This is a 3rd version using a custom serializer I've encapsulated over in the new helper class
-	@GET
+	/*
+	 * @GET
+	 
 	@Path("/{authorId}")
 	public Response getAuthor(@PathParam("authorId") int aid) {
 		Author author = __bService.getAuthor(aid);
@@ -110,7 +114,7 @@ public class AuthorResource {
 			return null;
 		}
 	}
-	
+	*/
 	/* This was the first version of POST we did
 	@POST
 	@Consumes("text/plain")
@@ -184,9 +188,10 @@ public class AuthorResource {
 			return Response.status(404, "{ \"message \" : \"No such Author " + aid + "\"}").build();
 		}
     }
-	
+	/*
 	@PATCH
 	public Response patchAuthor(@QueryParam("id") int aid) {
 		return Response.status(405, "{ \"message \" : \"PATCH not supported\"}").build();
     }
+    */
 }

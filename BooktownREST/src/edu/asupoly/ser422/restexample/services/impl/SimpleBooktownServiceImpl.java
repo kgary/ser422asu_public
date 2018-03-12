@@ -19,7 +19,7 @@ public class SimpleBooktownServiceImpl implements BooktownService {
 	public List<Author> getAuthors() {
 		List<Author> deepClone = new ArrayList<Author>();
 		for (Author a : __authors) {
-			deepClone.add(new Author(a.getAuthorId(), a.getFirstName(), a.getLastName()));
+			deepClone.add(new Author(a.getAuthorId(), a.getLastName(), a.getFirstName()));
 		}
 		return deepClone;
 	}
@@ -31,7 +31,7 @@ public class SimpleBooktownServiceImpl implements BooktownService {
 				max = a.getAuthorId();
 			}
 		}
-		__authors.add(new Author(max+1, fname, lname));
+		__authors.add(new Author(max+1, lname, fname));
 		return max+1;
 	}
 
@@ -134,7 +134,7 @@ public class SimpleBooktownServiceImpl implements BooktownService {
 		__books = new ArrayList<Book>();
 		__subjects = new ArrayList<Subject>();
 		for (int i = 0; i < fnames.length; i++) {
-			Author a = new Author(i, fnames[i], lnames[i]);
+			Author a = new Author(i, lnames[i], fnames[i]);
 			__authors.add(a);
 			Subject s = new Subject(i, subjects[i], locations[i]);
 			__subjects.add(s);
