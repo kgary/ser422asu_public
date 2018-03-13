@@ -6,10 +6,9 @@ import java.util.ArrayList;
 import edu.asupoly.ser422.restexample.model.Author;
 import edu.asupoly.ser422.restexample.model.Book;
 import edu.asupoly.ser422.restexample.model.Subject;
-import edu.asupoly.ser422.restexample.services.BooktownService;
 
 //A simple impl of interface BooktownService
-public class SimpleBooktownServiceImpl implements BooktownService {
+public class SimpleBooktownServiceImpl extends ABooktownServiceImpl {
 	
 	// Author section
 	private final static String[] fnames = {"Laura", "Hillary", "Jackie",};
@@ -24,16 +23,14 @@ public class SimpleBooktownServiceImpl implements BooktownService {
 		return deepClone;
 	}
 
-	public int createAuthor(String lname, String fname) {
-		int max = -1;
-		for (Author a : __authors) {
-			if (a.getAuthorId() > max) {
-				max = a.getAuthorId();
-			}
+	public int createAuthor(String lname, String fname) {	
+		int authorId = generateKey(1,99999);
+		// 10 retries 
+		for (int i = 0; i < 10 && !(__authors.add(new Author(generateKey(1, 99999), lname, fname))); ) {
+			authorId = generateKey(1,99999);
 		}
-		__authors.add(new Author(max+1, lname, fname));
-		return max+1;
-	}
+		return authorId;
+    }
 
 	public boolean deleteAuthor(int authorId) {
 		boolean rval = false;
@@ -46,8 +43,12 @@ public class SimpleBooktownServiceImpl implements BooktownService {
 					books.add(b);
 				}
 			}
-			Author a = __authors.remove(authorId);
-			if (!(rval = (a != null))) {
+
+			Author a = getAuthor(authorId);
+			if (a != null) {
+				rval = __authors.remove(a);
+			}
+			if (!rval) {
 				// if we couldn't remove that book we have to undo the books above,
 				// which is why we hung onto them!
 				for (Book b : books) {
@@ -103,16 +104,16 @@ public class SimpleBooktownServiceImpl implements BooktownService {
 		}
     		return null;	
     }
+    
     public int createBook(String title, int aid, int sid) {
-		int max = -1;
-		for (Book b : __books) {
-			if (b.getBookId() > max) {
-				max = b.getBookId();
-			}
+		int bookId = generateKey(1,99999);
+		// 10 retries 
+		for (int i = 0; i < 10 && !(__books.add(new Book(bookId, title, aid, sid))); ) {
+			bookId = generateKey(1,99999);
 		}
-		__books.add(new Book(max+1, title, aid, sid));
-		return max+1;
+		return bookId;
     }
+    
     public Author findAuthorOfBook(int bookId) {
     		Author a = null;
     		Book b = getBook(bookId);
@@ -125,7 +126,16 @@ public class SimpleBooktownServiceImpl implements BooktownService {
     // Subject section
 	private final static String[] subjects = {"Humor", "Politics", "Drama"};
 	private final static String[] locations = {"Midland, TX", "Little Rock, AR", "Dallas, TX"};
-	private ArrayList<Subject> __subjects = null;
+	private List<Subject> __subjects = null;
+	
+	public int createSubject(String subject, String location) {
+		int subjectId = generateKey(1,99999);
+		// 10 retries if we have a key clash
+		for (int i = 0; i < 10 && !(__subjects.add(new Subject(subjectId, subject, location))); ) {
+			subjectId = generateKey(1,99999);
+		}
+		return subjectId;
+	}
 	
     public List<Subject> getSubjects() {
 		List<Subject> deepClone = new ArrayList<Subject>();
@@ -152,11 +162,9 @@ public class SimpleBooktownServiceImpl implements BooktownService {
 		__books = new ArrayList<Book>();
 		__subjects = new ArrayList<Subject>();
 		for (int i = 0; i < fnames.length; i++) {
-			Author a = new Author(i, lnames[i], fnames[i]);
-			__authors.add(a);
-			Subject s = new Subject(i, subjects[i], locations[i]);
-			__subjects.add(s);
-			__books.add(new Book(i, titles[i], a.getAuthorId(), s.getSubjectId()));
+			int aid = createAuthor(lnames[i], fnames[i]);
+			int sid = createSubject(subjects[i], locations[i]);
+			createBook(titles[i], aid, sid);
 		}
 	}
 }
