@@ -8,11 +8,12 @@ import java.io.*;
 @SuppressWarnings("serial")
 public class BadPhoneServlet extends HttpServlet {
 	private PhoneBook pbook = null;
+	private String filename = null;
 	
 	public void init(ServletConfig config) throws ServletException {
 		// if you forget this your getServletContext() will get a NPE! 
 		super.init(config);
-		String filename = config.getInitParameter("phonebook");
+		filename = config.getInitParameter("phonebook");
 		if (filename == null || filename.length() == 0) {
 			throw new ServletException();
 		}
@@ -59,6 +60,14 @@ public class BadPhoneServlet extends HttpServlet {
 				pbook.editEntry(num, fname, lname);
 				out.println("<p>Done editing entry with " + num + ", " + fname + ", " + lname + "</p>");
 				listEntries(out);
+			} else if (action.equalsIgnoreCase("Add")) {
+				String num = req.getParameter("phone");
+				String fname = req.getParameter("firstname"); 
+				String lname = req.getParameter("lastname");
+				out.println("<p>Done adding entry with " + num + ", " + fname + ", " + lname + "</p>");
+				listEntries(out);
+			} else if (action.equalsIgnoreCase("Save")) {
+				pbook.savePhoneBook(getServletContext().getRealPath("/WEB-INF/classes/")+filename);
 			}
 		}
 		catch (Exception exc)
