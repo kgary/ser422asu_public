@@ -111,6 +111,7 @@ public class RDBMBooktownServiceImpl extends ABooktownServiceImpl {
 	}
 
 	public boolean deleteAuthor(int authorId) {
+		boolean rval = false;
 		Connection conn = null;
 		PreparedStatement stmt  = null;
 		PreparedStatement stmt2 = null;
@@ -119,12 +120,13 @@ public class RDBMBooktownServiceImpl extends ABooktownServiceImpl {
 			conn.setAutoCommit(false);
 			stmt = conn.prepareStatement(__dbProperties.getProperty("sql.deleteAuthor"));
 			stmt.setInt(1, authorId);
-			stmt.executeUpdate();
-			stmt2 = conn.prepareStatement(__dbProperties.getProperty("sql.removeAuthorRefFromBook"));
-			stmt2.setInt(1, authorId);
-			stmt2.executeUpdate();
+			if (rval = (stmt.executeUpdate() > 0)) {
+				stmt2 = conn.prepareStatement(__dbProperties.getProperty("sql.removeAuthorRefFromBook"));
+				stmt2.setInt(1, authorId);
+				stmt2.executeUpdate();
+			}
 			conn.commit();
-			return true;
+			return rval;
 		} catch (Exception sqe) {
 			sqe.printStackTrace();
 			try {

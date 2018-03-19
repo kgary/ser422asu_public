@@ -1,7 +1,9 @@
 package edu.asupoly.ser422.restexample.services.impl;
 
 import java.util.List;
+import java.util.Set;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 
 import edu.asupoly.ser422.restexample.model.Author;
 import edu.asupoly.ser422.restexample.model.Book;
@@ -13,7 +15,7 @@ public class SimpleBooktownServiceImpl extends ABooktownServiceImpl {
 	// Author section
 	private final static String[] fnames = {"Laura", "Hillary", "Jackie",};
 	private final static String[] lnames = {"Bush", "Clinton", "Kennedy"};
-	private ArrayList<Author> __authors = null;
+	private Set<Author> __authors = null;
 
 	public List<Author> getAuthors() {
 		List<Author> deepClone = new ArrayList<Author>();
@@ -36,7 +38,7 @@ public class SimpleBooktownServiceImpl extends ABooktownServiceImpl {
 		boolean rval = false;
 		try {
 			// Find any Books pointing at this author
-			List<Book> books = new ArrayList<Book>();
+			Set<Book> books = new LinkedHashSet<Book>();
 			for (Book b : __books) {
 				if (b.getAuthorId() == authorId) {
 					b.setAuthorId(-1);  // I guess -1 will mean marked for deletion
@@ -87,7 +89,7 @@ public class SimpleBooktownServiceImpl extends ABooktownServiceImpl {
 	
     // Book section
 	private final static String[] titles = {"Sisters First", "My Turn", "Four Days"};
-	private ArrayList<Book> __books = null;
+	private Set<Book> __books = null;
 
     public List<Book> getBooks() {
 		List<Book> deepClone = new ArrayList<Book>();
@@ -126,7 +128,7 @@ public class SimpleBooktownServiceImpl extends ABooktownServiceImpl {
     // Subject section
 	private final static String[] subjects = {"Humor", "Politics", "Drama"};
 	private final static String[] locations = {"Midland, TX", "Little Rock, AR", "Dallas, TX"};
-	private List<Subject> __subjects = null;
+	private Set<Subject> __subjects = null;
 	
 	public int createSubject(String subject, String location) {
 		int subjectId = generateKey(1,99999);
@@ -158,9 +160,9 @@ public class SimpleBooktownServiceImpl extends ABooktownServiceImpl {
     
 	// Only instantiated by factory?
 	public SimpleBooktownServiceImpl() {
-		__authors = new ArrayList<Author>();
-		__books = new ArrayList<Book>();
-		__subjects = new ArrayList<Subject>();
+		__authors = new LinkedHashSet<Author>();
+		__books = new LinkedHashSet<Book>();
+		__subjects = new LinkedHashSet<Subject>();
 		for (int i = 0; i < fnames.length; i++) {
 			int aid = createAuthor(lnames[i], fnames[i]);
 			int sid = createSubject(subjects[i], locations[i]);
