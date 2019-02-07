@@ -1,3 +1,7 @@
+task copyProps(type: Copy) {
+  from 'properties'
+  into 'build/classes/java/main'
+}
 apply plugin: 'java'
 sourceSets {
    main {

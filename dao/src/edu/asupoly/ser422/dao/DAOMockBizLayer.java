@@ -150,7 +150,7 @@ public class DAOMockBizLayer {
             // on the Title_Editor table - we are not totally opaque (encapsulated)!
 
             // dump
-            printCache();
+            //printCache();
 
             // Let's go find a VO of each type
             EditorVO newEditor1 = (EditorVO)findEditor(""+editor1.getEditorId());
@@ -182,18 +182,19 @@ public class DAOMockBizLayer {
             // have to add code to check the row version number within the transaction,
             // effectively pushing transaction semantics to the client side - and
             // would it horizontally scale? Messy!
-            printCache();
+            //printCache();
 
             // we could do a delete here too...
+	    /*
             delete(editor1);
             delete(editor2);
             delete(editor3);
             delete(editor4);
             delete(title1);
             delete(title2);
-
+	    */
             // all done!
-            printCache();
+            //printCache();
 
         } catch (Throwable t) {
             t.printStackTrace();

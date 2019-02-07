@@ -1,6 +1,6 @@
 package edu.asupoly.ser422.dao;
 
-import java.util.Hashtable;
+import java.util.Properties;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.lang.reflect.Constructor;
@@ -10,29 +10,22 @@ import java.lang.reflect.Constructor;
  * for a given object (table).
  */
 public class ConnectionFactory {
-    // This holds Datasource URLs
-  private static Hashtable<String, String> __sources = new Hashtable<String, String>();
+    // This holds properties
+    private static Properties dbProperties = new Properties();
 
-  // This really belongs in its own Factory class - lazy!
-  private static Hashtable<String, String> __impls = new Hashtable<String, String>();
-
-  static {
-      try {
-          Class.forName("org.postgresql.Driver");
-      } catch (Throwable t) {
-          t.printStackTrace();
-      }
-      // read in the properties file with the mappings
-      __sources.put("edu.asupoly.ser422.dao.daos.EditorDAOBean", "jdbc:postgresql://localhost/dao");
-      __sources.put("edu.asupoly.ser422.dao.daos.TitleDAOBean", "jdbc:postgresql://localhost/dao");
-
-      // Should be in a property file too
-      __impls.put("edu.asupoly.ser422.dao.daos.EditorDAO", "edu.asupoly.ser422.dao.daos.EditorDAOBean");
-      __impls.put("edu.asupoly.ser422.dao.daos.TitleDAO", "edu.asupoly.ser422.dao.daos.TitleDAOBean");
-  }
+    static {
+	try {
+	    dbProperties.load(ConnectionFactory.class.getClassLoader().getResourceAsStream("rdbm.properties"));
+	    Class.forName(dbProperties.getProperty("EditorDAODriver"));
+	    Class.forName(dbProperties.getProperty("TitleDAODriver"));
+	} catch (Throwable t) {
+	    t.printStackTrace();
+	} finally {
+	}
+    }
 
   public static final DAOObject getDAO(String DAOname) throws Exception {
-      String daoImplClassName = (String)__impls.get(DAOname);
+      String daoImplClassName = dbProperties.getProperty(DAOname); // (String)__props.get(DAOname);
       if (daoImplClassName == null) {
           throw new Exception("No DAO implementation registered for " + DAOname);
       }
@@ -56,17 +49,19 @@ public class ConnectionFactory {
   public static final Connection getConnection(Object obj)
   	throws DataAccessException {
 
+      String objName = obj.getClass().getName();
       // Look up the actual Datasource. Note we could have (and probably
       // should have) done this via JNDI.
-      String connInfo = (String)__sources.get(obj.getClass().getName());
+      String connInfo = dbProperties.getProperty(objName);
       if (connInfo == null || connInfo.length() == 0) {
-          throw new DataAccessException("No connection info for " + obj.getClass().getName());
+          throw new DataAccessException("No connection info for " + objName);
       }
       try {
-          return DriverManager.getConnection(connInfo, "kgary", "blah");
+          return DriverManager.getConnection(connInfo, dbProperties.getProperty(objName+"_jdbcUser"),
+					               dbProperties.getProperty(objName+"_jdbcPwd"));
       }
       catch (Throwable t) {
-          throw new DataAccessException("Could not get connection for " + connInfo);
+          throw new DataAccessException("Could not get connection for " + connInfo + ", " + dbProperties.getProperty(objName+"_jdbcUser") + ", " + dbProperties.getProperty(objName+"_jdbcPwd"));
       }
   }
 }
