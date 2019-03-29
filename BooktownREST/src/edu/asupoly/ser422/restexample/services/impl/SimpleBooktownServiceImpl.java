@@ -13,7 +13,7 @@ import edu.asupoly.ser422.restexample.model.Subject;
 public class SimpleBooktownServiceImpl extends ABooktownServiceImpl {
 	
 	// Author section
-	private final static String[] fnames = {"Laura", "Hillary", "Jackie",};
+	private final static String[] fnames = {"Laura", "Hillary", "Jackie"};
 	private final static String[] lnames = {"Bush", "Clinton", "Kennedy"};
 	private Set<Author> __authors = null;
 
@@ -28,7 +28,7 @@ public class SimpleBooktownServiceImpl extends ABooktownServiceImpl {
 	public int createAuthor(String lname, String fname) {	
 		int authorId = generateKey(1,99999);
 		// 10 retries 
-		for (int i = 0; i < 10 && !(__authors.add(new Author(generateKey(1, 99999), lname, fname))); ) {
+		for (int i = 0; i < 10 && !(__authors.add(new Author(authorId, lname, fname))); ) {
 			authorId = generateKey(1,99999);
 		}
 		return authorId;

@@ -24,7 +24,7 @@ import edu.asupoly.ser422.restexample.services.BooktownService;
 import edu.asupoly.ser422.restexample.services.BooktownServiceFactory;
 
 @Path("/authors")
-@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML})
 public class AuthorResource {
 	private static BooktownService __bService = BooktownServiceFactory.getInstance();
 	
@@ -70,7 +70,7 @@ public class AuthorResource {
 		return __bService.getAuthors();
 	}
 
-	/* This is the first version of GET we did, using defaults and letting Jersey internally serialize
+	/* This is the first version of GET we did, using defaults and letting Jersey internally serialize 
 	 @GET
 	@Path("/{authorId}")
 	public Author getAuthor(@PathParam("authorId") int aid) {
@@ -80,7 +80,7 @@ public class AuthorResource {
 	/* 
 	 * This is a second version - it uses Jackson's default mapping via ObjectMapper, which spits out
 	 * the same JSON as Jersey's internal version, so the output will look the same as version 1 when you run
-	 */
+	 
 	@GET
 	@Path("/{authorId}")
 	public Response getAuthor(@PathParam("authorId") int aid) {
@@ -96,11 +96,10 @@ public class AuthorResource {
 			return null;
 		}
 	}
-	 
+	 */
 	// This is a 3rd version using a custom serializer I've encapsulated over in the new helper class
-	/*
-	 * @GET
-	 
+	@GET
+	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/{authorId}")
 	public Response getAuthor(@PathParam("authorId") int aid) {
 		Author author = __bService.getAuthor(aid);
@@ -115,8 +114,8 @@ public class AuthorResource {
 			return null;
 		}
 	}
-	*/
-	/* This was the first version of POST we did 
+	
+	/* This was the first version of POST we did
 	@POST
 	@Consumes("text/plain")
     public int createAuthor(String name) {
@@ -140,13 +139,14 @@ public class AuthorResource {
 			return Response.status(500).entity("{ \" ERROR INSERTING INTO DATABASE! \"}").build();
 		}
 		return Response.status(201)
-				.header("Location", String.format("%s/%s",_uriInfo.getAbsolutePath().toString(), aid))
+				.header("Location", String.format("%s/%d",_uriInfo.getAbsolutePath().toString(), aid))
 				.entity("{ \"Author\" : \"" + aid + "\"}").build();
     }
 	
 	/*
 	 * This is the original PUT method that consumed the default JSON Jersey produces. Would work with the
-	 * JSON produced by getAuthor versions 1 and 2 above, but not version 33
+	 * JSON produced by getAuthor versions 1 and 2 above, but not version 3
+	 
 	@PUT
 	@Consumes("application/json")
     public Response updateAuthor(Author a) {

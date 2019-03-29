@@ -11,7 +11,8 @@ public abstract class ABooktownServiceImpl implements BooktownService {
 	 * in so you have a random error generator (and should think about how to handle that).
 	 */
 	protected int generateKey(int lb, int ub) {
-		return __r.nextInt(Math.abs(ub-lb)) + ((ub>lb) ? lb : ub);
+		int rval = __r.nextInt(Math.abs(ub-lb)) + ((ub>lb) ? lb : ub);
+		return rval;
 	}
 	
 }
