@@ -16,13 +16,12 @@ public class QProducer {
  
 	    // Create a MessageProducer from the Session to the Topic or Queue
 	    MessageProducer producer = session.createProducer(destination);
-	    producer.setDeliveryMode(DeliveryMode.PERSISTENT);
+	    //producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
 	    TextMessage msg = session.createTextMessage(args[1]);
 	    producer.send(msg);
 	
 	    session.close();
-	    connection.stop();
 	    connection.close();
 	} catch (Throwable tw) {
 	    tw.printStackTrace();

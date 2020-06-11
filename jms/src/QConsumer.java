@@ -1,4 +1,3 @@
-import javax.naming.Context;
 import javax.jms.*;
 
 /**
@@ -8,6 +7,9 @@ import javax.jms.*;
 public class QConsumer {
     public static void main(String args[]) throws Exception {
 	try {
+	    int timeout = 5000;
+	    if (args.length > 1) timeout = Integer.parseInt(args[1]);
+	    
 	    Connection connection = JMSHelperActiveMQ.getJMSConnection();
 	    connection.start();
 	    //connection.setExceptionListener(this);
@@ -17,7 +19,7 @@ public class QConsumer {
 	    Destination destination = session.createQueue(args[0]);
 	    MessageConsumer consumer = session.createConsumer(destination);
 	    // Wait for a message
-	    Message message = consumer.receive(5000);
+	    Message message = consumer.receive(timeout);
  
 	    if (message instanceof TextMessage) {
 		TextMessage textMessage = (TextMessage) message;
