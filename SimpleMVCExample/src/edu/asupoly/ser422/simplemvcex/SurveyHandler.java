@@ -13,7 +13,7 @@ public class SurveyHandler implements ActionHandler{
 	public String handleIt(HttpServletRequest req, HttpServletResponse response) {
 		// we are entering a survey page. Gotta figger out where we are
 		Survey survey = null;
-		HttpSession session = req.getSession(true);  // session has to exist by now
+		HttpSession session = req.getSession();  // session has to exist by now
 		String saFile = (String)req.getAttribute("surveyanswersfile");
 		
 		if (session == null) {  // houston we have a problem. Should never happen

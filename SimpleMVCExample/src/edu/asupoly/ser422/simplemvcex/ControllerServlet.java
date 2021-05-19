@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Iterator;
 //import java.util.logging.Logger;
 
 import javax.servlet.ServletConfig;
@@ -75,15 +76,28 @@ public class ControllerServlet extends HttpServlet {
 		HttpSession session = request.getSession();  // yes create a session if non-existent
 		String forwardPage = errorPage;  // if we have an HTTP error
 
+		Map<String, String[]> params = request.getParameterMap();
+		Iterator it = params.entrySet().iterator();
+		while (it.hasNext()) {
+		    Map.Entry<String, String[]> pair = (Map.Entry<String,String[]>)it.next();
+		    String[] values = pair.getValue();
+		    System.out.print(pair.getKey() + " =");
+		    for (String s : values) System.out.print(" " + s);
+		    System.out.println("");
+		}
+
 		String action = request.getParameter("action");
 		// username in the request supercedes username in an existing session
 
 		String username = request.getParameter("username");
+		System.out.println("U1: " + username);
 		if (username != null) {
 			session.setAttribute("username", username);
+			System.out.println("U2 set name: " + username);
 			response.addCookie(new Cookie("mvcname", username));
 		} else { // if we still have no username we can't continue (see if below)
 			username = (String)session.getAttribute("username");
+			System.out.println("U3: " + username);
 		}
 		// we don't have username in the session and we don't have it in the request
 		// we'll drop down to the error page
@@ -102,6 +116,7 @@ public class ControllerServlet extends HttpServlet {
 				forwardPage = errorPage;
 			}
 		}  else { // if the action or username are not setwe will forward to our error page automagically
+		    System.out.println("Cannot get action handler for " + action + " or username " + username);
 			request.setAttribute("mvcmessage", "Improper request, no action or username present");
 		}
 

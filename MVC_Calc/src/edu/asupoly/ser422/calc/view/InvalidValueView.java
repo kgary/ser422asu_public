@@ -14,7 +14,7 @@ public class InvalidValueView extends HttpServlet {
 			throws ServletException, IOException {
 		PrintWriter out = null;
 		try {
-			response.setStatus(HttpServletResponse.SC_OK);
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			response.setContentType("text/html");
 
 			out = response.getWriter();

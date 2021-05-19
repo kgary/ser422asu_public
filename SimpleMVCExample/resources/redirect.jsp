@@ -9,7 +9,7 @@
 <body>
 <p>
 <%
-response.setHeader("refresh", "2;url=./index.jsp");
+response.setHeader("refresh", "20;url=./index.jsp");
 
 String message = (String)request.getAttribute("mvcmessage");
 if (message != null && !message.isEmpty()) {

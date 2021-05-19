@@ -30,7 +30,7 @@
       <!-- Make sure you set your classpath! -->
       <classpath>
         <fileset dir="${lib.dir}" includes="*.jar"/>
-        <fileset dir="${tomcat.home}-${tomcat.port1}/lib" includes="servlet-api.jar"/>
+        <fileset dir="${tomcat.home}/lib" includes="servlet-api.jar"/>
         <pathelement path="${classes.dir}" />
       </classpath>
     </javac>
@@ -44,23 +44,8 @@
        example does), you can create it in a given directory, or create
        your dist jar first that can be run using java -jar. -->
   <target name="deploy" depends="dist">
-    <echo message="Deploying to tomcat at ${tomcat.home}-${port}"/>
-    <copy file="${dist.jar}" todir="${tomcat.home}-${port}/webapps" overwrite="yes"/>
-  </target>
-
-  <target name="deploy-port1" depends="dist">
-    <antcall target="deploy">
-      <param name="port" value="${tomcat.port1}"/>
-    </antcall>
-  </target>
-  <target name="deploy-port2" depends="dist">
-    <antcall target="deploy">
-      <param name="port" value="${tomcat.port2}"/>
-    </antcall>
-  </target>
-  <target name="deploy-all" depends="dist">
-    <antcall target="deploy-port1"/>
-    <antcall target="deploy-port2"/>
+    <echo message="Deploying to tomcat at ${tomcat.home}"/>
+    <copy file="${dist.jar}" todir="${tomcat.home}/webapps" overwrite="yes"/>
   </target>
   
   <target name="build" depends="compile">
@@ -103,10 +88,8 @@
   <!-- Clean -->
   <target name="clean">
     <delete file="${dist.jar}"/>
-    <delete dir="${tomcat.home}-${tomcat-port1}/webapps/${app.name}"/>
-    <delete dir="${tomcat.home}-${tomcat-port2}/webapps/${app.name}"/>
-    <delete file="${tomcat.home}-${tomcat-port1}/webapps/${dist.jar}"/>
-    <delete file="${tomcat.home}-${tomcat.port2}/webapps/${dist.jar}"/>
+    <delete dir="${tomcat.home}/webapps/${app.name}"/>
+    <delete file="${tomcat.home}/webapps/${dist.jar}"/>
     <delete dir="${build.home}"/>
     <delete dir="${classes.dir}"/>
   </target>
