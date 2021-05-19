@@ -27,6 +27,8 @@ Step 3b: Alternatively, you can simply compile at the command-line (from the roo
 
 --> javac -d classes -cp classes:$KAFKA_HOME/libs/* src/main/java/SampleProducer.java
 
+Note: $KAFKA_HOME is the root of your kafka install
+
 This should result in a classes subdirectory having SampleProducer.class and SampleConsumer.class
 
 RUNNING THE APPLICATIONS
