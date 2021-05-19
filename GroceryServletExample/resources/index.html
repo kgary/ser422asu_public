@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Grocery List</title>
+</head>
+	<body>
+		<h1>Grocery List</h1>
+		<form action="groceries" method="post">
+			<table border=1 cols=2>
+				<tr>
+					<th>Field Name</th>
+					<th>Field Value</th>
+				</tr>
+				<tr>
+					<td>Product Name</td>
+					<td>
+						<input type="text" name="pname" required>
+					</td>
+				</tr>
+				<tr>
+					<td>Product Brand</td>
+					<td><input type="text" name="bname"></td>
+				</tr>
+				<tr>
+					<td>Quantity</td>
+					<td><input type="number" name="qty" required></td>
+				</tr>
+				<tr>
+					<td>Aisle</td>
+					<td><input type="number" name="aisle"></td>
+				</tr>
+				<tr>
+					<td>Diet</td>
+					<td><input type="text" name="diet" required></td>
+				</tr>
+			</table>
+			<input type="submit" value="Add">
+		</form>
+		<form action="my_groceries" method="get">
+			<table border=1 cols=2> 
+				<tr>
+					<td>Aisle</td>
+					<td><input type="number" name="aisle"></td>
+				</tr>
+				<tr>
+					<td>Diet</td>
+					<td><input type="text" name="custom"></td>
+				</tr>
+			</table>
+			<input type="submit" value="View">
+		</form>
+	</body>
+</html>
