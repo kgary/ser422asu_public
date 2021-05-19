@@ -69,14 +69,21 @@ public class AuthorResource {
 	public List<Author> getAuthors() {
 		return __bService.getAuthors();
 	}
-
-	/* This is the first version of GET we did, using defaults and letting Jersey internally serialize 
-	 @GET
+	/*  This is an example of putting a projection after the path param
+	@GET
+	@Path("/{authorId}/name")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getAuthor(@PathParam("authorId") int aid) {
+		return __bService.getAuthor(aid).getLastName();
+	}
+	*/
+	
+	@GET
 	@Path("/{authorId}")
 	public Author getAuthor(@PathParam("authorId") int aid) {
 		return __bService.getAuthor(aid);
 	}
-	 */
+
 	/* 
 	 * This is a second version - it uses Jackson's default mapping via ObjectMapper, which spits out
 	 * the same JSON as Jersey's internal version, so the output will look the same as version 1 when you run
@@ -98,6 +105,7 @@ public class AuthorResource {
 	}
 	 */
 	// This is a 3rd version using a custom serializer I've encapsulated over in the new helper class
+	/*
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/{authorId}")
@@ -114,7 +122,7 @@ public class AuthorResource {
 			return null;
 		}
 	}
-	
+	*/
 	/* This was the first version of POST we did
 	@POST
 	@Consumes("text/plain")

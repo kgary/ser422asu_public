@@ -1,6 +1,7 @@
 package edu.asupoly.ser422.services.impl;
 
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
@@ -16,7 +17,7 @@ import java.util.Properties;
 //A simple impl of interface BooktownService
 public class RDBMBooktownServiceImpl implements BooktownService {
 	private static int __id = 1;
-	
+	private static Properties __dbProperties;
 	private static String __jdbcUrl;
 	private static String __jdbcUser;
 	private static String __jdbcPasswd;
@@ -24,7 +25,6 @@ public class RDBMBooktownServiceImpl implements BooktownService {
 
 	// Only instantiated by factory within package scope
 	public RDBMBooktownServiceImpl() {
-		// read your db init properties
 	}
 
 	public List<Author> getAuthors() {
@@ -44,7 +44,7 @@ public class RDBMBooktownServiceImpl implements BooktownService {
 			conn = DriverManager.getConnection(__jdbcUrl, __jdbcUser, __jdbcPasswd);
 
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("Select id, last_name, first_name from Authors");
+			rs = stmt.executeQuery(__dbProperties.getProperty("sql.authors"));
 			while (rs.next()) {
 				rval.add(new Author(rs.getInt(1), rs.getString(2), rs.getString(3)));
 			}
@@ -77,18 +77,21 @@ public class RDBMBooktownServiceImpl implements BooktownService {
 			return -1;
 		}
 		Connection conn = null;
-		Statement stmt = null;
+		PreparedStatement stmt = null;
 		try {
 			try {
-				Class.forName("org.postgresql.Driver");
+				Class.forName(__jdbcDriver);
 			}
 			catch (Throwable t) {
 				t.printStackTrace();
 				return -1;
 			}
 			conn = DriverManager.getConnection(__jdbcUrl, __jdbcUser, __jdbcPasswd);
-			stmt = conn.createStatement();
-			return stmt.executeUpdate("INSERT INTO Authors (id, last_name, first_name) VALUES (" + __id++ + ", '" + lname + "', '" + fname + "')");
+			stmt = conn.prepareStatement(__dbProperties.getProperty("sql.createAuthor"));
+			stmt.setInt(1, __id++);
+			stmt.setString(2, lname);
+			stmt.setString(3, fname);
+			return stmt.executeUpdate();
 		} catch (SQLException sqe) {
 			sqe.printStackTrace();
 			return -1;
@@ -106,18 +109,19 @@ public class RDBMBooktownServiceImpl implements BooktownService {
 
 	public boolean deleteAuthor(int authorId) {
 		Connection conn = null;
-		Statement stmt = null;
+		PreparedStatement stmt = null;
 		try {
 			try {
-				Class.forName("org.postgresql.Driver");
+				Class.forName(__jdbcDriver);
 			}
 			catch (Throwable t) {
 				t.printStackTrace();
 				return false;
 			}
 			conn = DriverManager.getConnection(__jdbcUrl, __jdbcUser, __jdbcPasswd);
-			stmt = conn.createStatement();
-			stmt.executeUpdate("DELETE FROM Authors WHERE id = " + authorId);
+			stmt = conn.prepareStatement(__dbProperties.getProperty("sql.deleteAuthor"));
+			stmt.setInt(1, authorId);
+			stmt.executeUpdate();
 			return true;
 		} catch (SQLException sqe) {
 			sqe.printStackTrace();
@@ -139,12 +143,12 @@ public class RDBMBooktownServiceImpl implements BooktownService {
 	// to get its initial settings
 	static {
 		try {
-			Properties dbProperties = new Properties();
-			dbProperties.load(RDBMBooktownServiceImpl.class.getClassLoader().getResourceAsStream("rdbm.properties"));
-			__jdbcUrl    = dbProperties.getProperty("jdbcUrl");
-			__jdbcUser   = dbProperties.getProperty("jdbcUser");
-			__jdbcPasswd = dbProperties.getProperty("jdbcPasswd");
-			__jdbcDriver = dbProperties.getProperty("jdbcDriver");
+			__dbProperties = new Properties();
+			__dbProperties.load(RDBMBooktownServiceImpl.class.getClassLoader().getResourceAsStream("rdbm.properties"));
+			__jdbcUrl    = __dbProperties.getProperty("jdbcUrl");
+			__jdbcUser   = __dbProperties.getProperty("jdbcUser");
+			__jdbcPasswd = __dbProperties.getProperty("jdbcPasswd");
+			__jdbcDriver = __dbProperties.getProperty("jdbcDriver");
 		} catch (Throwable t) {
 			t.printStackTrace();
 		} finally {
