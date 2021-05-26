@@ -1,0 +1,16 @@
+[
+    {
+	"pname": "Test A",
+	"bname": "Brand A",
+	"qty": 7,
+	"aisle": 2,
+	"diet": "keto"
+    },
+    {
+	"pname": "Fish Oil",
+	"bname": "Nature Made",
+	"qty": 7,
+	"aisle": 1,
+	"diet": "paleo"
+    }
+]

@@ -61,8 +61,8 @@ public class GroceryItem {
 	*/
 	public static Map<String, Boolean> getGroceryItemBlueprint(){
 		Map<String, Boolean> blueprint = new HashMap<String, Boolean>();
-		blueprint.put(AISLE_KEY, false);
-		blueprint.put(BNAME_KEY, false);
+		blueprint.put(AISLE_KEY, true);
+		blueprint.put(BNAME_KEY, true);
 		blueprint.put(QTY_KEY, true);
 		blueprint.put(PNAME_KEY, true);
 		blueprint.put(DIET_KEY, true);

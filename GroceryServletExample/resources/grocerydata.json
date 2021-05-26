@@ -1,13 +1,30 @@
 [
 	{
-		"pname": "Test A",
-		"qty": 7,
-		"diet": "keto"
+	    "pname": "milk",
+	    "bname": "Lucerne",
+	    "qty": 2,
+	    "aisle": 3,
+	    "diet": "keto"
 	},
 	{
-		"pname": "Fish Oil",
-		"bname": "Nature Made",
-		"qty": 7,
-		"diet": "paleo"
+	    "pname": "eggs",
+	    "bname": "Lucerne",
+	    "qty": 12,
+	    "aisle": 3,
+	    "diet": "keto"
+	},
+	{
+	    "pname": "deodorant",
+	    "bname": "Degree",
+	    "qty": 1,
+	    "aisle": 5,
+	    "diet": "NA"
+	},
+	{
+	    "pname": "peanuts",
+	    "bname": "Planters",
+	    "qty": 1,
+	    "aisle": 3,
+	    "diet": "nutty"
 	}
 ]
